@@ -16,7 +16,7 @@ import tensorrt as trt
 from logging import error, warning
 from tqdm import tqdm
 import copy
-from cuda import cudart
+import cuda.bindings.runtime as cudart
 
 TRT_LOGGER = trt.Logger(trt.Logger.ERROR)
 G_LOGGER.module_severity = G_LOGGER.ERROR
@@ -274,3 +274,4 @@ class Engine:
                 raise ValueError("ERROR: inference failed.")
 
         return self.tensors
+
