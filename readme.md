@@ -51,12 +51,12 @@ Models are automatically downloaded from [HuggingFace](https://huggingface.co/yu
 
 ## ☀️ Usage
 
-1. **Load Model**: Insert `Right Click -> tensorrt -> Load Rife Tensorrt Model`
+1. **Load Model**: Insert `Right Click -> Add Node -> tensorrt -> Load Rife Tensorrt Model`
    - Choose your preferred RIFE model (rife47, rife48, or rife49)
    - Select precision (fp16 recommended for speed, fp32 for maximum accuracy)
    - The model will be automatically downloaded and TensorRT engine built on first use
 
-2. **Process Frames**: Insert `Right Click -> tensorrt -> Rife Tensorrt`
+2. **Process Frames**: Insert `Right Click -> Add Node -> tensorrt -> Rife Tensorrt`
    - Connect the loaded model from step 1
    - Input your video frames
    - Configure interpolation settings (multiplier, CUDA graph, etc.)
@@ -64,7 +64,7 @@ Models are automatically downloaded from [HuggingFace](https://huggingface.co/yu
 
 ## 🤖 Environment tested
 
-- Ubuntu 22.04 LTS, Cuda 12.4, Tensorrt 10.13.3.9, Python 3.10, RTX 3070 GPU
+- WSL Ubuntu 24.04.03 LTS, Cuda 12.9, Tensorrt 10.13.3.9, Python 3.12.11, RTX 5080 GPU
 - Windows (Not tested, but should work)
 
 ## 🚨 Updates
