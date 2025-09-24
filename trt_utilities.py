@@ -136,14 +136,41 @@ class Engine:
         self.buffers = OrderedDict()
         self.tensors = OrderedDict()
         self.cuda_graph_instance = None  # cuda graph
+        self.graph = None
 
     def __del__(self):
+        # Clean up CUDA graph resources
+        if hasattr(self, 'cuda_graph_instance') and self.cuda_graph_instance is not None:
+            try:
+                cudart.cudaGraphDestroy(self.cuda_graph_instance)
+            except:
+                pass
+        if hasattr(self, 'graph') and self.graph is not None:
+            try:
+                cudart.cudaGraphDestroy(self.graph)
+            except:
+                pass
+
         del self.engine
         del self.context
         del self.buffers
         del self.tensors
 
     def reset(self, engine_path=None):
+        # Clean up CUDA graph resources first
+        if hasattr(self, 'cuda_graph_instance') and self.cuda_graph_instance is not None:
+            try:
+                cudart.cudaGraphDestroy(self.cuda_graph_instance)
+            except:
+                pass
+            self.cuda_graph_instance = None
+        if hasattr(self, 'graph') and self.graph is not None:
+            try:
+                cudart.cudaGraphDestroy(self.graph)
+            except:
+                pass
+            self.graph = None
+
         if hasattr(self, 'engine') and self.engine is not None:
             del self.engine
         if hasattr(self, 'context') and self.context is not None:
@@ -238,6 +265,20 @@ class Engine:
             self.context = self.engine.create_execution_context()
 
     def allocate_buffers(self, shape_dict=None, device="cuda"):
+        # Clean up CUDA graph resources since tensors will be recreated
+        if hasattr(self, 'cuda_graph_instance') and self.cuda_graph_instance is not None:
+            try:
+                cudart.cudaGraphDestroy(self.cuda_graph_instance)
+            except:
+                pass
+            self.cuda_graph_instance = None
+        if hasattr(self, 'graph') and self.graph is not None:
+            try:
+                cudart.cudaGraphDestroy(self.graph)
+            except:
+                pass
+            self.graph = None
+
         nvtx.range_push("allocate_buffers")
         for idx in range(self.engine.num_io_tensors):
             name = self.engine.get_tensor_name(idx)
