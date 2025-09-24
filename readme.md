@@ -2,8 +2,8 @@
 
 # ComfyUI Rife TensorRT ⚡
 
-[![python](https://img.shields.io/badge/python-3.10.12-green)](https://www.python.org/downloads/release/python-31012/)
-[![cuda](https://img.shields.io/badge/cuda-12.4-green)](https://developer.nvidia.com/cuda-downloads)
+[![python](https://img.shields.io/badge/python-3.12.11-green)](https://www.python.org/downloads/release/python-31211/)
+[![cuda](https://img.shields.io/badge/cuda-12.9-green)](https://developer.nvidia.com/cuda-downloads)
 [![trt](https://img.shields.io/badge/TRT-10.13.3.9-green)](https://developer.nvidia.com/tensorrt)
 [![by-nc-sa/4.0](https://img.shields.io/badge/license-CC--BY--NC--SA--4.0-lightgrey)](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
 
