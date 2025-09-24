@@ -144,11 +144,18 @@ class Engine:
         del self.tensors
 
     def reset(self, engine_path=None):
-        del self.engine
-        del self.context
-        del self.buffers
-        del self.tensors
-        self.engine_path = engine_path
+        if hasattr(self, 'engine') and self.engine is not None:
+            del self.engine
+        if hasattr(self, 'context') and self.context is not None:
+            del self.context
+        if hasattr(self, 'buffers'):
+            del self.buffers
+        if hasattr(self, 'tensors'):
+            del self.tensors
+
+        self.engine = None
+        self.context = None
+        self.engine_path = engine_path if engine_path else self.engine_path
 
         self.buffers = OrderedDict()
         self.tensors = OrderedDict()
@@ -220,6 +227,10 @@ class Engine:
         self.engine = engine_from_bytes(bytes_from_path(self.engine_path))
 
     def activate(self, reuse_device_memory=None):
+        # If engine was reset, reload it
+        if self.engine is None:
+            self.load()
+
         if reuse_device_memory:
             self.context = self.engine.create_execution_context_without_device_memory()
         #    self.context.device_memory = reuse_device_memory
