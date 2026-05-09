@@ -151,10 +151,20 @@ class Engine:
             except:
                 pass
 
-        del self.engine
-        del self.context
-        del self.buffers
-        del self.tensors
+        if hasattr(self, 'engine'):
+            del self.engine
+        if hasattr(self, 'context'):
+            del self.context
+        if hasattr(self, 'tensors'):
+            for key in list(self.tensors.keys()):
+                del self.tensors[key]
+            del self.tensors
+        if hasattr(self, 'buffers'):
+            del self.buffers
+        if hasattr(self, 'inputs'):
+            del self.inputs
+        if hasattr(self, 'outputs'):
+            del self.outputs
 
     def reset(self, engine_path=None):
         # Clean up CUDA graph resources first
@@ -175,10 +185,12 @@ class Engine:
             del self.engine
         if hasattr(self, 'context') and self.context is not None:
             del self.context
+        if hasattr(self, 'tensors'):
+            for key in list(self.tensors.keys()):
+                del self.tensors[key]
+            del self.tensors
         if hasattr(self, 'buffers'):
             del self.buffers
-        if hasattr(self, 'tensors'):
-            del self.tensors
 
         self.engine = None
         self.context = None
@@ -188,6 +200,8 @@ class Engine:
         self.tensors = OrderedDict()
         self.inputs = {}
         self.outputs = {}
+        self.cuda_graph_instance = None
+        self.graph = None
 
     def build(
         self,
