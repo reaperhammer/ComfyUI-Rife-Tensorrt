@@ -74,7 +74,10 @@ def generate_frames_rife(
 
     # Append final frame
     output_frames[out_len] = frames[-1:]
-    logger(f"done! - {out_len} total frames output at resolution: {output_frames[0].shape}")
+    # Get actual frame shape from first interpolated frame (CHW format)
+    actual_frame = output_frames[0]
+    h, w = actual_frame.shape[1], actual_frame.shape[2]
+    logger(f"done! - {out_len} total frames output at resolution: {h}x{w}")
     out_len += 1
 
     # clear cache for courtesy

@@ -143,12 +143,12 @@ class Engine:
         if hasattr(self, 'cuda_graph_instance') and self.cuda_graph_instance is not None:
             try:
                 cudart.cudaGraphDestroy(self.cuda_graph_instance)
-            except:
+            except Exception:
                 pass
         if hasattr(self, 'graph') and self.graph is not None:
             try:
                 cudart.cudaGraphDestroy(self.graph)
-            except:
+            except Exception:
                 pass
 
         if hasattr(self, 'engine'):
@@ -171,13 +171,13 @@ class Engine:
         if hasattr(self, 'cuda_graph_instance') and self.cuda_graph_instance is not None:
             try:
                 cudart.cudaGraphDestroy(self.cuda_graph_instance)
-            except:
+            except Exception:
                 pass
             self.cuda_graph_instance = None
         if hasattr(self, 'graph') and self.graph is not None:
             try:
                 cudart.cudaGraphDestroy(self.graph)
-            except:
+            except Exception:
                 pass
             self.graph = None
 
@@ -283,13 +283,13 @@ class Engine:
         if hasattr(self, 'cuda_graph_instance') and self.cuda_graph_instance is not None:
             try:
                 cudart.cudaGraphDestroy(self.cuda_graph_instance)
-            except:
+            except Exception:
                 pass
             self.cuda_graph_instance = None
         if hasattr(self, 'graph') and self.graph is not None:
             try:
                 cudart.cudaGraphDestroy(self.graph)
-            except:
+            except Exception:
                 pass
             self.graph = None
 

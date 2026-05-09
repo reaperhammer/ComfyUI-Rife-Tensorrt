@@ -85,6 +85,7 @@ def download_file(url, save_path):
     GREEN = '\033[92m'
     RESET = '\033[0m'
     response = requests.get(url, stream=True)
+    response.raise_for_status()
     total_size = int(response.headers.get('content-length', 0))
 
     with open(save_path, 'wb') as file, tqdm(
